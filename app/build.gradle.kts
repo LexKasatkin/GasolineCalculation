@@ -11,7 +11,7 @@ android {
     compileSdkVersion(30)
 
     defaultConfig {
-        applicationId = "com.invest.altair"
+        applicationId = "com.gasolinecalculation"
 
         minSdkVersion(21)
         targetSdkVersion(30)
