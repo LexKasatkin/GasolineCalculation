@@ -1,23 +1,16 @@
-package com.invest.altair
+package com.gasolinecalculation
 
 import android.app.Application
-import com.invest.altair.di.ApplicationScope
+import androidx.annotation.VisibleForTesting
+import com.gasolinecalculation.di.DI
+import com.gasolinecalculation.di.appModule
+import com.gasolinecalculation.di.networkModule
 import timber.log.Timber
 import toothpick.Scope
-import toothpick.config.Module
-import toothpick.ktp.KTP
-import toothpick.ktp.binding.module
+import toothpick.Toothpick
+import toothpick.configuration.Configuration
 
 class App : Application() {
-
-    private val appModule = module {
-        // We make the modules available for injection
-        bind<Module>().withName(ActivityModule::class).toInstance(activityModule)
-        bind<Module>().withName(ActivityVMModule::class).toInstance(activityVMModule)
-        bind<Module>().withName(FragmentModule::class).toInstance(fragmentModule)
-        bind<Module>().withName(FragmentVMModule::class).toInstance(fragmentVMModule)
-        // TODO: Other application-scope custom bindings can go here.
-    }
 
     lateinit var scope: Scope
 
@@ -27,17 +20,35 @@ class App : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree());
         } else {
-//            Timber.plant(CrashReportingTree());
         }
 
-        scope = KTP
-            .openScope(ApplicationScope::class.java)
-            .installModules(SmoothieApplicationModule(this), appModule)
-        scope.inject(this)
+        initToothpick()
+        initAppScope(Toothpick.openScope(DI.APP_SCOPE))
     }
 
-    override fun onTrimMemory(level: Int) {
-        super.onTrimMemory(level)
-        scope.release()
+    @VisibleForTesting
+    fun initAppScope(appScope: Scope) {
+        appScope.installModules(
+            appModule(this)
+        )
+
+        val serverScope = Toothpick.openScopes(DI.APP_SCOPE, DI.SERVER_SCOPE)
+        serverScope.installModules(
+            networkModule()
+        )
+
     }
+
+    private fun initToothpick() {
+        if (BuildConfig.DEBUG) {
+            Toothpick.setConfiguration(Configuration.forDevelopment().preventMultipleRootScopes())
+        } else {
+            Toothpick.setConfiguration(Configuration.forProduction().preventMultipleRootScopes())
+        }
+    }
+
+//    override fun onTrimMemory(level: Int) {
+//        super.onTrimMemory(level)
+//        scope.release()
+//    }
 }
