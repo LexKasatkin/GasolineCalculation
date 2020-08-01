@@ -1,0 +1,53 @@
+package com.gasolinecalculation.common
+
+import android.content.Context
+import javax.inject.Inject
+
+class Prefs @Inject constructor(private val context: Context) {
+    private val KEY_CURRENT_ACCOUNT = "ad_current_account"
+    private val KEY_USER_ACCOUNTS = "ad_accounts"
+    private val KEY_FIRST_LAUNCH_TIME = "launch_ts"
+    private val KEY_OAUTH_HASH = "oauth_hash"
+
+    var selectedAccount: String? = KEY_CURRENT_ACCOUNT
+
+    //        get() = settings.getStringOrNull(KEY_CURRENT_ACCOUNT)
+//        set(value) {
+//            value?.let {
+//                settings.putString(KEY_CURRENT_ACCOUNT, value)
+//            } ?: run {
+//                settings.remove(KEY_CURRENT_ACCOUNT)
+//            }
+//        }
+//
+//    var accounts: List<UserAccount>
+//        get() = json.parse(
+//            UserAccount.serializer().list,
+//            settings.getString(KEY_USER_ACCOUNTS, "[]")
+//        )
+//        set(value) {
+//            settings.putString(
+//                KEY_USER_ACCOUNTS,
+//                json.stringify(UserAccount.serializer().list, value)
+//            )
+//        }
+//
+//    fun getCurrentUserAccount(): UserAccount? {
+//        selectedAccount?.let { id ->
+//            return accounts.find { it.id == id }
+//        }
+//        return null
+//    }
+//
+    var firstLaunchTimeStamp: Long? = 0
+//        get() = settings.getLong(KEY_FIRST_LAUNCH_TIME, 0).takeIf { it > 0 }
+//        set(value) {
+//            settings.putLong(KEY_FIRST_LAUNCH_TIME, value ?: 0)
+//        }
+//
+//    var oauthHash: String
+//        get() = settings.getString(KEY_OAUTH_HASH)
+//        set(value) {
+//            settings.putString(KEY_OAUTH_HASH, value)
+//        }
+}

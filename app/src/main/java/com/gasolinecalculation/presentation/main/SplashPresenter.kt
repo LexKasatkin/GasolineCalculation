@@ -2,7 +2,6 @@ package com.gasolinecalculation.presentation.main
 
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.domain.interactors.AppInteractor
-import com.gasolinecalculation.navigation.FlowRouter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -12,18 +11,20 @@ import moxy.MvpPresenter
 import moxy.MvpView
 import moxy.viewstate.strategy.SingleStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 
 @StateStrategyType(SingleStateStrategy::class)
 interface SplashView : MvpView {
     fun showProgress()
+    fun hideProgress()
     fun showError(msg: String)
 }
 
 @InjectViewState
 class SplashPresenter @Inject constructor(
-    val router: FlowRouter,
+    val router: Router,
     private val appInteractor: AppInteractor
 ) : MvpPresenter<SplashView>() {
 
@@ -36,12 +37,13 @@ class SplashPresenter @Inject constructor(
             viewState.showProgress()
             delay(1000)
             toNextScreen()
+            viewState.hideProgress()
         }
     }
 
     private fun toNextScreen() {
-        if (!appInteractor.isLoggedIn())
-            router.newRootScreen(Screens.AuthFlow)
+//        if (!appInteractor.isLoggedIn())
+//            router.newRootScreen(Screens.AuthFlow)
 //        else
 //            router.newRootScreen(Screens.MainTabs)
     }
@@ -51,7 +53,7 @@ class SplashPresenter @Inject constructor(
     }
 
     fun doNext() {
-        router.newRootScreen(Screens.AuthFlow)
+        router.newRootScreen(Screens.Auth)
     }
 
     fun onBack() {

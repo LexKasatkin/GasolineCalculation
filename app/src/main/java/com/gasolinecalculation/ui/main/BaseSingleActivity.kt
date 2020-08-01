@@ -3,6 +3,7 @@ package com.gasolinecalculation.ui.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.gasolinecalculation.R
+import com.gasolinecalculation.base.BaseFragment
 import moxy.MvpAppCompatActivity
 import moxy.MvpView
 import ru.terrakok.cicerone.Navigator
@@ -21,15 +22,14 @@ abstract class BaseSingleActivity : MvpAppCompatActivity(), MvpView {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-//    private val currentFragment: BackButtonListener?
-//        get() = supportFragmentManager.findFragmentById(containerId) as? BackButtonListener
+    private val currentFragment: BaseFragment?
+        get() = supportFragmentManager.findFragmentById(containerId) as? BaseFragment
 
     private val navigator: Navigator =
         object : SupportAppNavigator(this, supportFragmentManager, containerId) {
 
             override fun setupFragmentTransaction(command: Command, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction) {
                 super.setupFragmentTransaction(command, currentFragment, nextFragment, fragmentTransaction)
-                //fix incorrect order lifecycle callback of MainFlowFragment
                 fragmentTransaction.setReorderingAllowed(true)
             }
         }
@@ -45,6 +45,6 @@ abstract class BaseSingleActivity : MvpAppCompatActivity(), MvpView {
     }
 
     override fun onBackPressed() {
-//        currentFragment?.onBackPressed() ?: super.onBackPressed()
+        currentFragment?.onBackPressed() ?: super.onBackPressed()
     }
 }

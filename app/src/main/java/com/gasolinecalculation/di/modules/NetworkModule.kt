@@ -1,4 +1,4 @@
-package com.gasolinecalculation.di
+package com.gasolinecalculation.di.modules
 
 import com.gasolinecalculation.di.providers.OkHttpProvider
 import com.gasolinecalculation.domain.model.AuthData

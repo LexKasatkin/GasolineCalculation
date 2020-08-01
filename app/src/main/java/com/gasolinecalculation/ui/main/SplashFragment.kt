@@ -21,9 +21,10 @@ class SplashFragment : BaseFragment(), SplashView {
     lateinit var presenter: SplashPresenter
 
     @ProvidePresenter
-    fun providePresenter(): SplashPresenter = Toothpick.openScope(DI.TOP_FLOW_SCOPE).getInstance(
-        SplashPresenter::class.java
-    )
+    fun providePresenter(): SplashPresenter =
+        Toothpick.openScope(DI.APP_SCOPE).getInstance(
+            SplashPresenter::class.java
+        )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +32,11 @@ class SplashFragment : BaseFragment(), SplashView {
 
     override fun showProgress() {
         progress.visibility = View.VISIBLE
+        errorSnackbar?.dismiss()
+    }
+
+    override fun hideProgress() {
+        progress.visibility = View.INVISIBLE
         errorSnackbar?.dismiss()
     }
 

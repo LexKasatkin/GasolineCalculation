@@ -22,6 +22,7 @@ class AppActivity : BaseSingleActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
+        presenter.onLaunch()
 
         if (savedInstanceState == null) {
             presenter.coldStart()

@@ -3,8 +3,8 @@ package com.gasolinecalculation
 import android.app.Application
 import androidx.annotation.VisibleForTesting
 import com.gasolinecalculation.di.DI
-import com.gasolinecalculation.di.appModule
-import com.gasolinecalculation.di.networkModule
+import com.gasolinecalculation.di.modules.appModule
+import com.gasolinecalculation.di.modules.networkModule
 import timber.log.Timber
 import toothpick.Scope
 import toothpick.Toothpick
@@ -12,22 +12,19 @@ import toothpick.configuration.Configuration
 
 class App : Application() {
 
-    lateinit var scope: Scope
+    lateinit var appScope: Scope
 
     override fun onCreate() {
         super.onCreate()
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree());
-        } else {
-        }
-
+        initTimber()
         initToothpick()
-        initAppScope(Toothpick.openScope(DI.APP_SCOPE))
+        initAppScope()
     }
 
     @VisibleForTesting
-    fun initAppScope(appScope: Scope) {
+    fun initAppScope() {
+        appScope = Toothpick.openScope(DI.APP_SCOPE)
         appScope.installModules(
             appModule(this)
         )
@@ -47,8 +44,15 @@ class App : Application() {
         }
     }
 
-//    override fun onTrimMemory(level: Int) {
-//        super.onTrimMemory(level)
-//        scope.release()
-//    }
+
+    private fun initTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree());
+        }
+    }
+
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        appScope.release()
+    }
 }

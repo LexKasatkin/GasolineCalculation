@@ -10,7 +10,7 @@ open class SupportAppTabScreen(@IdRes val navigationIdRes: Int) : SupportAppScre
 object Screens {
 
     // Flows
-    object AuthFlow : SupportAppScreen() {
+    object Auth : SupportAppScreen() {
         override fun getFragment() = AuthFragment()
     }
 

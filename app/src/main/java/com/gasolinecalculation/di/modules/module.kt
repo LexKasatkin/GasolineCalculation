@@ -1,4 +1,4 @@
-package com.gasolinecalculation.di
+package com.gasolinecalculation.di.modules
 
 import com.gasolinecalculation.navigation.FlowRouter
 import ru.terrakok.cicerone.Cicerone
