@@ -3,7 +3,6 @@ package com.gasolinecalculation.ui.main
 import android.os.Bundle
 import com.gasolinecalculation.di.DI
 import com.gasolinecalculation.presentation.main.AppPresenter
-import com.gasolinecalculation.presentation.main.AppView
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import toothpick.Toothpick
