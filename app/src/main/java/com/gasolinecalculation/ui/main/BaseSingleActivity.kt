@@ -47,5 +47,4 @@ abstract class BaseSingleActivity : MvpAppCompatActivity(), MvpView {
     override fun onBackPressed() {
 //        currentFragment?.onBackPressed() ?: super.onBackPressed()
     }
-
 }
