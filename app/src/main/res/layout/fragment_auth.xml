@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <!-- Login progress -->
     <ProgressBar
@@ -30,37 +31,37 @@
                 android:id="@+id/title_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text=""
                 android:textAlignment="center" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_next"
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" />
+                android:text="Login" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Cancel" />
+            <!--            <com.google.android.material.button.MaterialButton-->
+            <!--                android:id="@+id/btn_cancel"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="16dp"-->
+            <!--                android:text="Cancel" />-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content">-->
 
-                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                    android:id="@+id/phone_or_sms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+            <!--                <androidx.appcompat.widget.AppCompatAutoCompleteTextView-->
+            <!--                    android:id="@+id/phone_or_sms"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:inputType="phone"-->
+            <!--                    android:maxLines="1"-->
+            <!--                    android:singleLine="true" />-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
         </LinearLayout>
     </ScrollView>

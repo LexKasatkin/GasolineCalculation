@@ -1,4 +1,4 @@
-package com.gasolinecalculation.presentation.main
+package com.gasolinecalculation.presentation
 
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.domain.interactors.AppInteractor

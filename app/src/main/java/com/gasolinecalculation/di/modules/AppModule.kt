@@ -3,6 +3,8 @@ package com.gasolinecalculation.di.modules
 import android.app.Application
 import android.content.Context
 import com.gasolinecalculation.common.Prefs
+import com.gasolinecalculation.system.Dispatchers
+import com.gasolinecalculation.system.DispatchersProvider
 import com.gasolinecalculation.system.ResourceManager
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
@@ -16,6 +18,7 @@ fun appModule(application: Application) = module {
     bind(Context::class.java).toInstance(context)
     bind(ResourceManager::class.java).singleton()
     bind(Prefs::class.java).singleton()
+    bind(DispatchersProvider::class.java).toInstance(Dispatchers())
 
     // Navigation
     val cicerone = Cicerone.create()

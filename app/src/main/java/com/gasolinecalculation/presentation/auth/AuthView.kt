@@ -1,4 +1,4 @@
-package com.gasolinecalculation.presentation
+package com.gasolinecalculation.presentation.auth
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

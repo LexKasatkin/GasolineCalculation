@@ -6,18 +6,18 @@ import ru.terrakok.cicerone.commands.BackTo
 import ru.terrakok.cicerone.commands.Forward
 
 
-class FlowRouter(val appRouter: Router) : Router() {
+class FlowRouter(val router: Router) : Router() {
 
     fun startFlow(screen: Screen) {
-        appRouter.navigateTo(screen)
+        router.navigateTo(screen)
     }
 
     fun newRootFlow(screen: Screen) {
-        appRouter.newRootScreen(screen)
+        router.newRootScreen(screen)
     }
 
     fun finishFlow() {
-        appRouter.exit()
+        router.exit()
     }
 
     fun newScreenChain(screen: Screen) {

@@ -1,4 +1,4 @@
-package com.gasolinecalculation.presentation.main
+package com.gasolinecalculation.presentation
 
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.domain.interactors.AppInteractor
@@ -42,10 +42,10 @@ class SplashPresenter @Inject constructor(
     }
 
     private fun toNextScreen() {
-//        if (!appInteractor.isLoggedIn())
-//            router.newRootScreen(Screens.AuthFlow)
-//        else
-//            router.newRootScreen(Screens.MainTabs)
+        if (!appInteractor.isLoggedIn())
+            router.newRootScreen(Screens.AuthFlow)
+        else
+            router.newRootScreen(Screens.TabsFlow)
     }
 
     fun onRetry() {

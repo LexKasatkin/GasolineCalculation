@@ -27,4 +27,8 @@ class AppInteractor @Inject constructor(
 //            sessionSwitcher.initSession(prefs.getCurrentUserAccount())
 //        }
     }
+
+    fun isLoggedIn(): Boolean {
+        return true
+    }
 }

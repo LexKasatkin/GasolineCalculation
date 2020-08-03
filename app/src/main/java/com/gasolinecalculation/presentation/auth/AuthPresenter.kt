@@ -1,18 +1,18 @@
-package com.gasolinecalculation.presentation
+package com.gasolinecalculation.presentation.auth
 
+import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BasePresenter
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
 import moxy.InjectViewState
-import org.xml.sax.ErrorHandler
 import javax.inject.Inject
 
 
 @InjectViewState
 class AuthPresenter @Inject constructor(
     private val dispatchersProvider: DispatchersProvider,
-    private val router: FlowRouter,
-    private val errorHandler: ErrorHandler
+    private val router: FlowRouter
+//    private val errorHandler: ErrorHandler
 ) : BasePresenter<AuthView>(dispatchersProvider) {
 
     override fun onFirstViewAttach() {
@@ -24,7 +24,7 @@ class AuthPresenter @Inject constructor(
 
     fun login(email: String, password: String) {
 //        viewState.showProgress(true)
-//        router.newRootFlow(Screens.DrawerFlow)
+        router.startFlow(Screens.TabsFlow)
 //        viewState.showProgress(false)
     }
 

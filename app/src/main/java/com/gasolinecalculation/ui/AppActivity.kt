@@ -1,8 +1,9 @@
-package com.gasolinecalculation.ui.main
+package com.gasolinecalculation.ui
 
 import android.os.Bundle
 import com.gasolinecalculation.di.DI
-import com.gasolinecalculation.presentation.main.AppPresenter
+import com.gasolinecalculation.presentation.AppPresenter
+import com.gasolinecalculation.ui.global.BaseSingleActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import toothpick.Toothpick

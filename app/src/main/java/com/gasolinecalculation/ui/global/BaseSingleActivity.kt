@@ -1,4 +1,4 @@
-package com.gasolinecalculation.ui.main
+package com.gasolinecalculation.ui.global
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction

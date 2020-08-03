@@ -1,12 +1,12 @@
-package com.gasolinecalculation.ui.main
+package com.gasolinecalculation.ui.splash
 
 import android.os.Bundle
 import android.view.View
 import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
 import com.gasolinecalculation.di.DI
-import com.gasolinecalculation.presentation.main.SplashPresenter
-import com.gasolinecalculation.presentation.main.SplashView
+import com.gasolinecalculation.presentation.SplashPresenter
+import com.gasolinecalculation.presentation.SplashView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_splash.*
 import moxy.presenter.InjectPresenter

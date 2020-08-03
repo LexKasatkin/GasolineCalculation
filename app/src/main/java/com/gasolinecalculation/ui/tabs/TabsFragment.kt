@@ -1,22 +1,24 @@
-package com.gasolinecalculation.ui
+package com.gasolinecalculation.ui.tabs
 
 import android.os.Bundle
 import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
-import com.gasolinecalculation.presentation.AuthPresenter
-import com.gasolinecalculation.presentation.AuthView
+import com.gasolinecalculation.presentation.tabs.TabsPresenter
+import com.gasolinecalculation.presentation.tabs.TabsView
 import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 
-class AuthFragment : BaseFragment(), AuthView {
+
+class TabsFragment : BaseFragment(), TabsView {
 
     override val layoutRes = R.layout.fragment_auth
 
     @InjectPresenter
-    lateinit var presenter: AuthPresenter
+    lateinit var presenter: TabsPresenter
 
-//    @ProvidePresenter
-//    fun providePresenter(): AuthPresenter =
-//        scope.getInstance(AuthPresenter::class.java)
+    @ProvidePresenter
+    fun providePresenter(): TabsPresenter =
+        scope.getInstance(TabsPresenter::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
