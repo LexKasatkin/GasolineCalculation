@@ -19,12 +19,11 @@ class AuthPresenter @Inject constructor(
         super.onFirstViewAttach()
     }
 
-
     fun onBackPressed() = router.exit()
 
     fun login(email: String, password: String) {
 //        viewState.showProgress(true)
-        router.startFlow(Screens.TabsFlow)
+        router.newRootFlow(Screens.TabsFlow)
 //        viewState.showProgress(false)
     }
 

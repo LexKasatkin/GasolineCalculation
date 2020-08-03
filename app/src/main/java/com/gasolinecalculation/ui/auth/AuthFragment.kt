@@ -1,6 +1,7 @@
 package com.gasolinecalculation.ui.auth
 
 import android.os.Bundle
+import android.view.View
 import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
 import com.gasolinecalculation.presentation.auth.AuthPresenter
@@ -20,11 +21,15 @@ class AuthFragment : BaseFragment(), AuthView {
     fun providePresenter(): AuthPresenter =
         scope.getInstance(AuthPresenter::class.java)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btnLogin.setOnClickListener { presenter.login("", "") }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         btnLogin.setOnClickListener { presenter.login("", "") }
-
+    }
 //        view?.addSystemBottomPadding()
 //        toolbar.apply {
 //            setNavigationOnClickListener { presenter.onBackPressed() }
@@ -39,7 +44,7 @@ class AuthFragment : BaseFragment(), AuthView {
 
 //    }
 
-//    override fun showProgress(isVisible: Boolean) {
+    //    override fun showProgress(isVisible: Boolean) {
 //        showProgressDialog(isVisible)
 //    }
 //
@@ -47,8 +52,7 @@ class AuthFragment : BaseFragment(), AuthView {
 //        showSnackMessage(message)
 //    }
 //
-//    override fun onBackPressed() {
-//        presenter.onBackPressed()
-//    }
+    override fun onBackPressed() {
+        presenter.onBackPressed()
     }
 }

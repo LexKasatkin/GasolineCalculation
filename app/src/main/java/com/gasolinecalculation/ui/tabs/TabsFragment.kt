@@ -5,13 +5,14 @@ import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
 import com.gasolinecalculation.presentation.tabs.TabsPresenter
 import com.gasolinecalculation.presentation.tabs.TabsView
+import kotlinx.android.synthetic.main.fragment_auth.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
 
 class TabsFragment : BaseFragment(), TabsView {
 
-    override val layoutRes = R.layout.fragment_auth
+    override val layoutRes = R.layout.fragment_tabs
 
     @InjectPresenter
     lateinit var presenter: TabsPresenter
@@ -22,7 +23,8 @@ class TabsFragment : BaseFragment(), TabsView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        btnLogin.setOnClickListener { presenter.toNext() }
+    }
 //        view?.addSystemBottomPadding()
 //        toolbar.apply {
 //            setNavigationOnClickListener { presenter.onBackPressed() }
@@ -37,7 +39,7 @@ class TabsFragment : BaseFragment(), TabsView {
 
 //    }
 
-//    override fun showProgress(isVisible: Boolean) {
+    //    override fun showProgress(isVisible: Boolean) {
 //        showProgressDialog(isVisible)
 //    }
 //
@@ -45,8 +47,7 @@ class TabsFragment : BaseFragment(), TabsView {
 //        showSnackMessage(message)
 //    }
 //
-//    override fun onBackPressed() {
-//        presenter.onBackPressed()
-//    }
+    override fun onBackPressed() {
+        presenter.onBackPressed()
     }
 }

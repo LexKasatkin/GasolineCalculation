@@ -37,7 +37,7 @@ android {
 
         buildTypes {
             getByName("debug") {
-                isMinifyEnabled = true
+                isMinifyEnabled = false
                 versionNameSuffix = " debug"
 
                 proguardFiles(

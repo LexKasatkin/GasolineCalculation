@@ -1,5 +1,6 @@
 package com.gasolinecalculation.presentation.tabs
 
+import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BasePresenter
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
@@ -23,5 +24,9 @@ class TabsPresenter @Inject constructor(
 
     override fun proceedCoroutineError(throwable: Throwable) {
 
+    }
+
+    fun toNext() {
+        router.startFlow(Screens.AuthFlow)
     }
 }
