@@ -1,28 +1,27 @@
-package com.gasolinecalculation.ui.auth
+package com.gasolinecalculation.ui.calculation
 
 import android.os.Bundle
 import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
-import com.gasolinecalculation.presentation.auth.AuthPresenter
-import com.gasolinecalculation.presentation.auth.AuthView
-import kotlinx.android.synthetic.main.fragment_auth.*
+import com.gasolinecalculation.presentation.calculation.CalculationPresenter
+import com.gasolinecalculation.presentation.calculation.CalculationView
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
-class AuthFragment : BaseFragment(), AuthView {
+class CalculationFragment : BaseFragment(), CalculationView {
 
-    override val layoutRes = R.layout.fragment_auth
+    override val layoutRes = R.layout.fragment_calculation
 
     @InjectPresenter
-    lateinit var presenter: AuthPresenter
+    lateinit var presenter: CalculationPresenter
 
     @ProvidePresenter
-    fun providePresenter(): AuthPresenter =
-        scope.getInstance(AuthPresenter::class.java)
+    fun providePresenter(): CalculationPresenter =
+        scope.getInstance(CalculationPresenter::class.java)
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        btnLogin.setOnClickListener { presenter.login("", "") }
     }
 //        view?.addSystemBottomPadding()
 //        toolbar.apply {

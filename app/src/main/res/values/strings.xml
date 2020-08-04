@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GasolineCalculation</string>
+    <string name="settings_tab_name">Settings</string>
+    <string name="calculation_tab_name">Calculation</string>
 </resources>

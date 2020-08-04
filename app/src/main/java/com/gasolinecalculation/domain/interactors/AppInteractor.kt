@@ -29,6 +29,6 @@ class AppInteractor @Inject constructor(
     }
 
     fun isLoggedIn(): Boolean {
-        return true
+        return false
     }
 }

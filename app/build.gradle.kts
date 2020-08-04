@@ -77,6 +77,7 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+
     //Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
     implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
@@ -84,13 +85,16 @@ dependencies {
 
     //Timber logger
     implementation("com.jakewharton.timber:timber:4.7.1")
+
     //Moxy
     val moxyVersion = "2.1.2"
     kapt("com.github.moxy-community:moxy-compiler:$moxyVersion")
     implementation("com.github.moxy-community:moxy:$moxyVersion")
     implementation("com.github.moxy-community:moxy-androidx:$moxyVersion")
+
     //Navigation
     implementation("ru.terrakok.cicerone:cicerone:5.1.1")
+
     //Toothpick
     val toothpickVersion = "3.1.0"
     implementation("com.github.stephanenicolas.toothpick:toothpick-runtime:$toothpickVersion")
@@ -100,6 +104,7 @@ dependencies {
 
     //Gson
     implementation("com.google.code.gson:gson:2.8.5")
+
     //Retrofit
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
@@ -111,9 +116,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
     implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
-
-    //UI
-    implementation("com.aurelhubert:ahbottomnavigation:2.3.4")
 
     //Tests
     testImplementation("junit:junit:4.12")

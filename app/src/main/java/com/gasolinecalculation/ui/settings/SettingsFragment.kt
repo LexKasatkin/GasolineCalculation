@@ -1,29 +1,26 @@
-package com.gasolinecalculation.ui.tabs
+package com.gasolinecalculation.ui.settings
 
 import android.os.Bundle
 import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
-import com.gasolinecalculation.presentation.tabs.TabsPresenter
-import com.gasolinecalculation.presentation.tabs.TabsView
-import kotlinx.android.synthetic.main.fragment_auth.*
+import com.gasolinecalculation.presentation.settings.SettingsPresenter
+import com.gasolinecalculation.presentation.settings.SettingsView
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
+class SettingsFragment : BaseFragment(), SettingsView {
 
-class TabsFragment : BaseFragment(), TabsView {
-
-    override val layoutRes = R.layout.fragment_tabs
+    override val layoutRes = R.layout.fragment_settings
 
     @InjectPresenter
-    lateinit var presenter: TabsPresenter
+    lateinit var presenter: SettingsPresenter
 
     @ProvidePresenter
-    fun providePresenter(): TabsPresenter =
-        scope.getInstance(TabsPresenter::class.java)
+    fun providePresenter(): SettingsPresenter =
+        scope.getInstance(SettingsPresenter::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        btnLogin.setOnClickListener { presenter.toNext() }
     }
 //        view?.addSystemBottomPadding()
 //        toolbar.apply {
