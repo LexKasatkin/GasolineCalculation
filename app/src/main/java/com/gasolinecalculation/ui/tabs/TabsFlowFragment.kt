@@ -8,7 +8,7 @@ import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BaseFragment
 import com.gasolinecalculation.di.modules.NavigationModule
 import com.gasolinecalculation.util.setLaunchScreen
-import kotlinx.android.synthetic.main.tabs_flow_fragment.*
+import kotlinx.android.synthetic.main.fragment_flow_tabs.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -25,7 +25,7 @@ class TabsFlowFragment : BaseFragment() {
     @Inject
     lateinit var router: Router
 
-    override val layoutRes = R.layout.tabs_flow_fragment
+    override val layoutRes = R.layout.fragment_flow_tabs
 
 //    private val currentFragment
 //        get() = childFragmentManager.findFragmentById(R.id.mainContainer) as? BaseFragment
