@@ -7,18 +7,24 @@ import com.gasolinecalculation.system.DispatchersProvider
 import moxy.InjectViewState
 import javax.inject.Inject
 
-
 @InjectViewState
-class TabsPresenter @Inject constructor(
+class TabsFlowPresenter @Inject constructor(
     private val dispatchersProvider: DispatchersProvider,
     private val router: FlowRouter
 //    private val errorHandler: ErrorHandler
-) : BasePresenter<TabsView>(dispatchersProvider) {
+) : BasePresenter<TabsFlowView>(dispatchersProvider) {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
     }
 
+    fun navigateToSettings() {
+        router.navigateTo(Screens.Settings)
+    }
+
+    fun navigateToCalculation() {
+        router.navigateTo(Screens.Calculation)
+    }
 
     fun onBackPressed() = router.exit()
 

@@ -7,8 +7,12 @@ import com.gasolinecalculation.R
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BaseFragment
 import com.gasolinecalculation.di.modules.NavigationModule
+import com.gasolinecalculation.presentation.tabs.TabsFlowPresenter
+import com.gasolinecalculation.presentation.tabs.TabsFlowView
 import com.gasolinecalculation.util.setLaunchScreen
-import kotlinx.android.synthetic.main.fragment_flow_tabs.*
+import kotlinx.android.synthetic.main.fragment_tabs.*
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -18,18 +22,24 @@ import toothpick.Scope
 import toothpick.Toothpick
 import javax.inject.Inject
 
-class TabsFlowFragment : BaseFragment() {
+class TabsFlowFragment : BaseFragment(), TabsFlowView {
+    override val layoutRes: Int = R.layout.fragment_tabs
+
+    private val currentFragment
+        get() = childFragmentManager.findFragmentById(R.id.flow_container) as? BaseFragment
+
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
     @Inject
     lateinit var router: Router
 
-    override val layoutRes = R.layout.fragment_flow_tabs
+    @InjectPresenter
+    lateinit var presenter: TabsFlowPresenter
 
-//    private val currentFragment
-//        get() = childFragmentManager.findFragmentById(R.id.mainContainer) as? BaseFragment
-
+    @ProvidePresenter
+    fun providePresenter(): TabsFlowPresenter =
+        scope.getInstance(TabsFlowPresenter::class.java)
 
     override fun installModules(scope: Scope) {
         scope.installModules(
@@ -38,8 +48,7 @@ class TabsFlowFragment : BaseFragment() {
     }
 
     private val navigator: Navigator by lazy {
-        object : SupportAppNavigator(this.activity!!, childFragmentManager, R.id.bottomNavigation) {
-
+        object : SupportAppNavigator(requireActivity(), childFragmentManager, R.id.flow_container) {
             override fun activityBack() {
                 router.exit()
             }
@@ -56,31 +65,16 @@ class TabsFlowFragment : BaseFragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Toothpick.inject(this, scope)
-
-        if (childFragmentManager.fragments.isEmpty()) {
-//            childFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.navDrawerContainer, NavigationDrawerFragment())
-//                .commitNow()
-
-            navigator.setLaunchScreen(Screens.CalculationFlow)
-        }
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         bottomNavigation.setOnNavigationItemReselectedListener { item ->
             when (item.itemId) {
                 R.id.calculation -> {
-                    router.navigateTo(Screens.CalculationFlow)
+                    presenter.navigateToCalculation()
                     true
                 }
                 R.id.settings -> {
-                    router.navigateTo(Screens.SettingsFlow)
+                    presenter.navigateToSettings()
                     true
                 }
                 else -> false
@@ -88,36 +82,25 @@ class TabsFlowFragment : BaseFragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Toothpick.inject(this, scope)
+        if (childFragmentManager.fragments.isEmpty()) {
+            navigator.setLaunchScreen(Screens.CalculationFlow)
+        }
+    }
+
+    override fun onBackPressed() {
+        currentFragment?.onBackPressed() ?: super.onBackPressed()
+    }
+
     override fun onResume() {
         super.onResume()
-
         navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         navigatorHolder.removeNavigator()
-
         super.onPause()
     }
-
-    //region nav drawer
-//    private fun openNavDrawer(open: Boolean) {
-//        if (open) drawerLayout.openDrawer(GravityCompat.START)
-//        else drawerLayout.closeDrawer(GravityCompat.START)
-//    }
-//
-//    private fun updateNavDrawer() {
-//        childFragmentManager.executePendingTransactions()
-//
-//        drawerFragment?.let { drawerFragment ->
-//            currentFragment?.let {
-//                when (it) {
-////                    is MainFragment -> drawerFragment.onScreenChanged(NavigationDrawerView.MenuItem.ACTIVITY)
-////                    is ProjectsContainerFragment -> drawerFragment.onScreenChanged(NavigationDrawerView.MenuItem.PROJECTS)
-////                    is AboutFragment -> drawerFragment.onScreenChanged(NavigationDrawerView.MenuItem.ABOUT)
-//                }
-//            }
-//        }
-//    }
-    //endregion
 }
