@@ -5,6 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("org.jetbrains.kotlin.android.extensions")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,8 +42,8 @@ android {
                 versionNameSuffix = " debug"
 
                 proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"),
-                        file("proguard-rules.pro")
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    file("proguard-rules.pro")
                 )
             }
             getByName("release") {
@@ -50,8 +51,8 @@ android {
                 signingConfig = signingConfigs.getByName("prod")
 
                 proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"),
-                        file("proguard-rules.pro")
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    file("proguard-rules.pro")
                 )
             }
         }
@@ -80,8 +81,8 @@ dependencies {
 
     //Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
-    implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
-    implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
 
     //Timber logger
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -121,6 +122,10 @@ dependencies {
     testImplementation("junit:junit:4.12")
     testImplementation("org.mockito:mockito-core:3.1.0")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
+
+    //Firebase
+    val firebaseVersion = "17.2.2"
+    implementation("com.google.firebase:firebase-analytics:$firebaseVersion")
 }
 
 configurations.all {

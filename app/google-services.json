@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "560921410079",
+    "firebase_url": "https://gasoline-calculation.firebaseio.com",
+    "project_id": "gasoline-calculation",
+    "storage_bucket": "gasoline-calculation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560921410079:android:52af14229719d6fb05732a",
+        "android_client_info": {
+          "package_name": "com.gasolinecalculation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560921410079-jdqm0insste12lk22o77btkumshm6grh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgdCjIo_qcFj1hvCF3HxpdOOzT_UF70Oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560921410079-jdqm0insste12lk22o77btkumshm6grh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
