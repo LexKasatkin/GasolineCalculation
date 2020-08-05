@@ -67,7 +67,7 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        bottomNavigation.setOnNavigationItemReselectedListener { item ->
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.calculation -> {
                     presenter.navigateToCalculation()
