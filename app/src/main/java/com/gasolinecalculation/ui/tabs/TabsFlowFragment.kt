@@ -74,10 +74,6 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        toolbar.apply {
-            setNavigationOnClickListener { presenter.onBackPressed() }
-        }
         (requireActivity() as? MvpAppCompatActivity)?.setSupportActionBar(toolbar)
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -101,8 +97,9 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+        when (item.itemId) {
             R.id.btnSignOut -> presenter.signOut()
+            android.R.id.home -> presenter.onBackPressed()
         }
         return true
     }
