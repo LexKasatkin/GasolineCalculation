@@ -1,6 +1,5 @@
 package com.gasolinecalculation.ui.splash
 
-import android.os.Bundle
 import android.view.View
 import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
@@ -26,8 +25,8 @@ class SplashFragment : BaseFragment(), SplashView {
             SplashPresenter::class.java
         )
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         presenter.checkAuthorization(currentUser)
     }
 

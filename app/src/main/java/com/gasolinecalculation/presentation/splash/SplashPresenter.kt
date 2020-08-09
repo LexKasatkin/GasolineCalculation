@@ -20,7 +20,7 @@ class SplashPresenter @Inject constructor(
     fun checkAuthorization(user: FirebaseUser?) {
         launch {
             viewState.showProgress()
-            delay(3000)
+            delay(1000)
             if (user == null)
                 router.newRootScreen(Screens.AuthFlow)
             else
