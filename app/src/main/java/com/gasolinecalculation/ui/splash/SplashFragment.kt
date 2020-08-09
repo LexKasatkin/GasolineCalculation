@@ -5,8 +5,8 @@ import android.view.View
 import com.gasolinecalculation.R
 import com.gasolinecalculation.base.BaseFragment
 import com.gasolinecalculation.di.DI
-import com.gasolinecalculation.presentation.SplashPresenter
-import com.gasolinecalculation.presentation.SplashView
+import com.gasolinecalculation.presentation.splash.SplashPresenter
+import com.gasolinecalculation.presentation.splash.SplashView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_splash.*
 import moxy.presenter.InjectPresenter
@@ -26,8 +26,9 @@ class SplashFragment : BaseFragment(), SplashView {
             SplashPresenter::class.java
         )
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        presenter.checkAuthorization(currentUser)
     }
 
     override fun showProgress() {
@@ -40,15 +41,21 @@ class SplashFragment : BaseFragment(), SplashView {
         errorSnackbar?.dismiss()
     }
 
-    override fun showError(msg: String) {
+    override fun showError(message: String) {
         progress.visibility = View.INVISIBLE
         errorSnackbar?.dismiss()
 
         view?.let { view ->
-            errorSnackbar = Snackbar.make(view, msg, Snackbar.LENGTH_INDEFINITE).apply {
-                setAction("Retry") { presenter.onRetry() }
+            errorSnackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE).apply {
+                setAction("Retry") {
+                    presenter.onRetry(currentUser)
+                }
                 show()
             }
         }
+    }
+
+    override fun onBackPressed() {
+        presenter.onBack()
     }
 }

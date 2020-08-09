@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import com.gasolinecalculation.di.DI
 import com.gasolinecalculation.ui.global.ProgressDialog
 import com.gasolinecalculation.util.objectScopeName
+import com.gasolinecalculation.util.showSnackMessage
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import moxy.MvpAppCompatFragment
 import timber.log.Timber
 import toothpick.Scope
@@ -17,6 +22,9 @@ private const val STATE_SCOPE_NAME = "state_scope_name"
 
 abstract class BaseFragment : MvpAppCompatFragment() {
     abstract val layoutRes: Int
+
+    protected var auth: FirebaseAuth? = null
+    protected var currentUser: FirebaseUser? = null
 
     private var instanceStateSaved: Boolean = false
 
@@ -44,8 +52,12 @@ abstract class BaseFragment : MvpAppCompatFragment() {
             scope = Toothpick.openScopes(parentScopeName, fragmentScopeName)
             installModules(scope)
         }
-
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        auth = Firebase.auth
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
@@ -54,6 +66,11 @@ abstract class BaseFragment : MvpAppCompatFragment() {
     override fun onResume() {
         super.onResume()
         instanceStateSaved = false
+    }
+
+    override fun onStart() {
+        super.onStart()
+        currentUser = auth?.currentUser
     }
 
     // Fix for async views (like swipeToRefresh and RecyclerView)
@@ -106,6 +123,10 @@ abstract class BaseFragment : MvpAppCompatFragment() {
             ProgressDialog().show(childFragmentManager, PROGRESS_TAG)
             childFragmentManager.executePendingTransactions()
         }
+    }
+
+    fun showMessage(message: String) {
+        showSnackMessage(message)
     }
 
     open fun onBackPressed() {}

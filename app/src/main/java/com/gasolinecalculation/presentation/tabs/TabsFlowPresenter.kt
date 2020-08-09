@@ -11,12 +11,7 @@ import javax.inject.Inject
 class TabsFlowPresenter @Inject constructor(
     private val dispatchersProvider: DispatchersProvider,
     private val router: FlowRouter
-//    private val errorHandler: ErrorHandler
 ) : BasePresenter<TabsFlowView>(dispatchersProvider) {
-
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-    }
 
     fun navigateToSettings() {
         router.navigateTo(Screens.Settings)
@@ -28,11 +23,15 @@ class TabsFlowPresenter @Inject constructor(
 
     fun onBackPressed() = router.exit()
 
-    override fun proceedCoroutineError(throwable: Throwable) {
 
+    fun signOut() {
+        viewState.signOut()
     }
 
-    fun toNext() {
+    override fun proceedCoroutineError(throwable: Throwable) {
+    }
+
+    fun navigateToAuth() {
         router.startFlow(Screens.AuthFlow)
     }
 }

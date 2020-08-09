@@ -11,8 +11,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 abstract class BasePresenter<V : MvpView>(dispatchers: DispatchersProvider) : MvpPresenter<V>(),
-    CoroutineScope {
-
+    CoroutineScope by CoroutineScope(dispatchers.main()) {
 
     /**
      * Handler for proceed exception

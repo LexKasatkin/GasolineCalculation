@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "560921410079-gt6f0cania0kv1or1mn1ts7jcdd8or71.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gasolinecalculation",
+            "certificate_hash": "728a2bc365e58d63b8241f7b8a0bdd24382fed47"
+          }
+        },
+        {
           "client_id": "560921410079-jdqm0insste12lk22o77btkumshm6grh.apps.googleusercontent.com",
           "client_type": 3
         }

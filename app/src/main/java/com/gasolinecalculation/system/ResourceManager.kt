@@ -8,4 +8,6 @@ class ResourceManager @Inject constructor(private val context: Context) {
     fun getString(id: Int) = context.getString(id)
 
     fun getString(id: Int, vararg formatArgs: Any) = String.format(context.getString(id, *formatArgs))
+
+    fun getDrawable(id: Int) = context.getDrawable(id)
 }

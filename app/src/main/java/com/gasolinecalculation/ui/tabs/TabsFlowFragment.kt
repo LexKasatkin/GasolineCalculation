@@ -1,6 +1,9 @@
 package com.gasolinecalculation.ui.tabs
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.gasolinecalculation.R
@@ -10,7 +13,10 @@ import com.gasolinecalculation.di.modules.NavigationModule
 import com.gasolinecalculation.presentation.tabs.TabsFlowPresenter
 import com.gasolinecalculation.presentation.tabs.TabsFlowView
 import com.gasolinecalculation.util.setLaunchScreen
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.fragment_tabs.*
+import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.terrakok.cicerone.Navigator
@@ -21,6 +27,7 @@ import ru.terrakok.cicerone.commands.Command
 import toothpick.Scope
 import toothpick.Toothpick
 import javax.inject.Inject
+
 
 class TabsFlowFragment : BaseFragment(), TabsFlowView {
     override val layoutRes: Int = R.layout.fragment_tabs
@@ -67,6 +74,12 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        toolbar.apply {
+            setNavigationOnClickListener { presenter.onBackPressed() }
+        }
+        (requireActivity() as? MvpAppCompatActivity)?.setSupportActionBar(toolbar)
+
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.calculation -> {
@@ -82,12 +95,25 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_tabs, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            R.id.btnSignOut -> presenter.signOut()
+        }
+        return true
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Toothpick.inject(this, scope)
         if (childFragmentManager.fragments.isEmpty()) {
             navigator.setLaunchScreen(Screens.CalculationFlow)
         }
+        setHasOptionsMenu(true);
     }
 
     override fun onBackPressed() {
@@ -102,5 +128,20 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+
+    override fun signOut() {
+        val googleOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        val googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleOptions)
+        googleSignInClient.signOut().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                auth?.signOut()
+                presenter.navigateToAuth()
+            }
+        }
     }
 }

@@ -9,6 +9,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("prod") {
+            storeFile = file("../keystore/gasoline.jks")
+            storePassword = "gasolinestore"
+            keyAlias = "gasolinestore"
+            keyPassword = "gasolinestore"
+        }
+    }
     compileSdkVersion(30)
 
     defaultConfig {
@@ -28,18 +36,11 @@ android {
 
         multiDexEnabled = true
 
-
-        signingConfigs {
-            create("prod") {
-
-            }
-        }
-
-
         buildTypes {
             getByName("debug") {
                 isMinifyEnabled = false
                 versionNameSuffix = " debug"
+                isDebuggable = true
 
                 proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -74,8 +75,8 @@ androidExtensions {
 
 dependencies {
     //Support
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("com.google.android.material:material:1.1.0")
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("com.google.android.material:material:1.2.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
 
@@ -125,7 +126,11 @@ dependencies {
 
     //Firebase
     val firebaseVersion = "17.2.2"
+    val firebaseAuthVersion = "19.3.2"
     implementation("com.google.firebase:firebase-analytics:$firebaseVersion")
+    implementation("com.google.firebase:firebase-auth:$firebaseAuthVersion")
+    implementation("com.google.firebase:firebase-auth-ktx:$firebaseAuthVersion")
+    implementation("com.google.android.gms:play-services-auth:18.1.0")
 }
 
 configurations.all {
