@@ -42,7 +42,7 @@ class AuthFragment : BaseFragment(), AuthView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAuthorization()
-        btnGoogleSignIn.setOnClickListener { presenter.signIn(currentUser) }
+        btnGoogleSignIn.setOnClickListener { presenter.googleSignIn(currentUser) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -59,7 +59,7 @@ class AuthFragment : BaseFragment(), AuthView {
         view?.let { view ->
             errorSnackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE).apply {
                 setAction("Retry") {
-                    presenter.signIn(currentUser)
+                    presenter.googleSignIn(currentUser)
                 }
                 show()
             }

@@ -1,6 +1,7 @@
 package com.gasolinecalculation.presentation.calculation
 
 import com.gasolinecalculation.base.BasePresenter
+import com.gasolinecalculation.domain.interactors.CalculationInteractor
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
 import moxy.InjectViewState
@@ -9,22 +10,17 @@ import javax.inject.Inject
 
 @InjectViewState
 class CalculationPresenter @Inject constructor(
-    private val dispatchersProvider: DispatchersProvider,
-    private val router: FlowRouter
-//    private val errorHandler: ErrorHandler
+    private val interactor: CalculationInteractor,
+    private val router: FlowRouter,
+    dispatchersProvider: DispatchersProvider
 ) : BasePresenter<CalculationView>(dispatchersProvider) {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        interactor.loadData()
     }
 
     fun onBackPressed() = router.exit()
 
-    override fun proceedCoroutineError(throwable: Throwable) {
-
-    }
-
-//    override fun proceedCoroutineError(throwable: Throwable) {
-//        errorHandler.proceedError(throwable)
-//    }
+    override fun proceedCoroutineError(throwable: Throwable) {}
 }

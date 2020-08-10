@@ -22,7 +22,7 @@ class AuthPresenter @Inject constructor(
 
     fun onBackPressed() = router.exit()
 
-    fun signIn(user: FirebaseUser?) {
+    fun googleSignIn(user: FirebaseUser?) {
         if (user == null) viewState.startGoogleSignIn()
         else navigateToTabs()
     }

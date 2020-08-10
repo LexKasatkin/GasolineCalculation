@@ -131,6 +131,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:$firebaseAuthVersion")
     implementation("com.google.firebase:firebase-auth-ktx:$firebaseAuthVersion")
     implementation("com.google.android.gms:play-services-auth:18.1.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:21.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
 }
 
 configurations.all {

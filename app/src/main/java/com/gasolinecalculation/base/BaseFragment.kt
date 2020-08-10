@@ -32,7 +32,7 @@ abstract class BaseFragment : MvpAppCompatFragment() {
 
     protected open val parentScopeName: String by lazy {
         (parentFragment as? BaseFragment)?.fragmentScopeName
-            ?: DI.APP_SCOPE
+            ?: DI.SERVER_SCOPE
     }
 
     private lateinit var fragmentScopeName: String
