@@ -1,13 +1,10 @@
 package com.gasolinecalculation.presentation.auth
 
-import android.content.Context
-import com.gasolinecalculation.R
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BasePresenter
 import com.gasolinecalculation.domain.interactors.AuthInteractor
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
-import com.gasolinecalculation.system.ResourceManager
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
@@ -17,8 +14,6 @@ import javax.inject.Inject
 
 @InjectViewState
 class AuthPresenter @Inject constructor(
-    private val context: Context,
-    private val resourceManager: ResourceManager,
     private val router: FlowRouter,
     private val interactor: AuthInteractor,
     dispatchersProvider: DispatchersProvider
@@ -48,23 +43,9 @@ class AuthPresenter @Inject constructor(
                 proceedCoroutineError(e)
             }
         }
-//        auth?.signInWithCredential(credential)?.addOnCompleteListener(context) { task ->
-//            if (task.isSuccessful) {
-//                currentUser = auth?.currentUser
-//                currentUser?.let { presenter.navigateToTabs() }
-//                Timber.v("signInWithCredential:success")
-//            } else {
-//                Timber.e(task.exception, "signInWithCredential:failure")
-//                presenter.onGoogleAuthError()
-//            }
-//        }
     }
 
-    fun navigateToTabs() {
+    private fun navigateToTabs() {
         router.newRootFlow(Screens.TabsFlow)
-    }
-
-    fun onGoogleAuthError() {
-        viewState.showError(resourceManager.getString(R.string.authentication_error))
     }
 }

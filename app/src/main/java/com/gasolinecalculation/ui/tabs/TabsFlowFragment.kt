@@ -134,6 +134,8 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
             .build()
 
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleOptions)
-        presenter.onSignOut(googleSignInClient)
+        googleSignInClient.signOut().addOnCompleteListener { task ->
+            presenter.onSignOut(task)
+        }
     }
 }

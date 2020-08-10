@@ -5,7 +5,7 @@ import com.gasolinecalculation.base.BasePresenter
 import com.gasolinecalculation.domain.interactors.TabsFlowInteractor
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import timber.log.Timber
@@ -37,18 +37,16 @@ class TabsFlowPresenter @Inject constructor(
         viewState.signOut()
     }
 
-    fun onSignOut(googleSignInClient: GoogleSignInClient) {
-        try {
-            googleSignInClient.signOut().addOnCompleteListener { task ->
+    fun onSignOut(task: Task<Void>) {
+        launch {
+            try {
                 if (task.isSuccessful) {
-                    launch {
-                        interactor.googleSignOut()
-                    }
+                    interactor.googleSignOut()
                     navigateToAuth()
                 }
+            } catch (e: Exception) {
+                proceedCoroutineError(e)
             }
-        } catch (e: Exception) {
-            proceedCoroutineError(e)
         }
     }
 
