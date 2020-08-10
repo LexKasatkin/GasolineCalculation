@@ -21,13 +21,13 @@ class SplashFragment : BaseFragment(), SplashView {
 
     @ProvidePresenter
     fun providePresenter(): SplashPresenter =
-        Toothpick.openScope(DI.APP_SCOPE).getInstance(
+        Toothpick.openScope(DI.SERVER_SCOPE).getInstance(
             SplashPresenter::class.java
         )
 
     override fun onStart() {
         super.onStart()
-        presenter.checkAuthorization(currentUser)
+        presenter.checkAuthorization()
     }
 
     override fun showProgress() {
@@ -47,7 +47,7 @@ class SplashFragment : BaseFragment(), SplashView {
         view?.let { view ->
             errorSnackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE).apply {
                 setAction("Retry") {
-                    presenter.onRetry(currentUser)
+                    presenter.onRetry()
                 }
                 show()
             }

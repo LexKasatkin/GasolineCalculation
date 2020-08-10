@@ -3,7 +3,7 @@ package com.gasolinecalculation
 import android.app.Application
 import androidx.annotation.VisibleForTesting
 import com.gasolinecalculation.di.DI
-import com.gasolinecalculation.di.modules.StoreModule
+import com.gasolinecalculation.di.modules.ServerModule
 import com.gasolinecalculation.di.modules.appModule
 import timber.log.Timber
 import toothpick.Scope
@@ -31,7 +31,7 @@ class App : Application() {
 
         val serverScope = Toothpick.openScopes(DI.APP_SCOPE, DI.SERVER_SCOPE)
         serverScope.installModules(
-            StoreModule()
+            ServerModule()
         )
 
     }

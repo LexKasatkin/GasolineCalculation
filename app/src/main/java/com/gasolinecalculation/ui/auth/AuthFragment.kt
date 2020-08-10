@@ -8,13 +8,10 @@ import com.gasolinecalculation.presentation.auth.AuthPresenter
 import com.gasolinecalculation.presentation.auth.AuthView
 import com.gasolinecalculation.util.RC_SIGN_IN
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.fragment_auth.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -41,15 +38,14 @@ class AuthFragment : BaseFragment(), AuthView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initAuthorization()
-        btnGoogleSignIn.setOnClickListener { presenter.googleSignIn(currentUser) }
+        initGoogleAuthorization()
+        btnGoogleSignIn.setOnClickListener { presenter.googleSignIn() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            handleGoogleSignInResult(data)
         }
     }
 
@@ -59,7 +55,7 @@ class AuthFragment : BaseFragment(), AuthView {
         view?.let { view ->
             errorSnackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE).apply {
                 setAction("Retry") {
-                    presenter.googleSignIn(currentUser)
+                    presenter.googleSignIn()
                 }
                 show()
             }
@@ -78,7 +74,7 @@ class AuthFragment : BaseFragment(), AuthView {
         presenter.onBackPressed()
     }
 
-    private fun initAuthorization() {
+    private fun initGoogleAuthorization() {
         val googleOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -86,27 +82,16 @@ class AuthFragment : BaseFragment(), AuthView {
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleOptions);
     }
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+    fun handleGoogleSignInResult(data: Intent?) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        var userToken: String? = null
         try {
-            val account = completedTask.getResult(ApiException::class.java)
-            Timber.v(account?.id)
-            account?.idToken?.let { firebaseAuthWithGoogle(it) }
+            val account = task?.getResult(ApiException::class.java)
+            userToken = account?.idToken
+            Timber.v(userToken)
         } catch (e: ApiException) {
             Timber.v("signInResult:failed code=${e.statusCode}")
         }
-    }
-
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth?.signInWithCredential(credential)?.addOnCompleteListener(requireActivity()) { task ->
-            if (task.isSuccessful) {
-                currentUser = auth?.currentUser
-                currentUser?.let { presenter.navigateToTabs() }
-                Timber.v("signInWithCredential:success")
-            } else {
-                Timber.e(task.exception, "signInWithCredential:failure")
-                presenter.onGoogleAuthError()
-            }
-        }
+        userToken?.let { presenter.firebaseAuthWithGoogle(it) }
     }
 }

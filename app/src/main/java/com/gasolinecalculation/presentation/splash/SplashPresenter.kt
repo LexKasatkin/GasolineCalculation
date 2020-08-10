@@ -2,8 +2,8 @@ package com.gasolinecalculation.presentation.splash
 
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BasePresenter
+import com.gasolinecalculation.domain.interactors.SplashInteractor
 import com.gasolinecalculation.system.DispatchersProvider
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
@@ -13,15 +13,16 @@ import javax.inject.Inject
 
 @InjectViewState
 class SplashPresenter @Inject constructor(
+    private val interactor: SplashInteractor,
     private val router: Router,
     dispatchers: DispatchersProvider
 ) : BasePresenter<SplashView>(dispatchers) {
 
-    fun checkAuthorization(user: FirebaseUser?) {
+    fun checkAuthorization() {
         launch {
             viewState.showProgress()
             delay(1000)
-            if (user == null)
+            if (interactor.getCurrentUser() == null)
                 router.newRootScreen(Screens.AuthFlow)
             else
                 router.newRootScreen(Screens.TabsFlow)
@@ -29,8 +30,8 @@ class SplashPresenter @Inject constructor(
         }
     }
 
-    fun onRetry(user: FirebaseUser?) {
-        checkAuthorization(user)
+    fun onRetry() {
+        checkAuthorization()
     }
 
     fun onBack() {
