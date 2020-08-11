@@ -1,8 +1,10 @@
 package com.gasolinecalculation.di.modules
 
 import com.gasolinecalculation.data.AuthImplRepository
+import com.gasolinecalculation.data.FirestoreImplRepository
 import com.gasolinecalculation.di.providers.OkHttpProvider
 import com.gasolinecalculation.domain.auth.AuthRepository
+import com.gasolinecalculation.domain.firestore.FirestoreRepository
 import com.gasolinecalculation.domain.model.AuthData
 import com.gasolinecalculation.domain.model.AuthDataPrefs
 import com.google.firebase.auth.FirebaseAuth
@@ -23,4 +25,5 @@ fun ServerModule() = module {
 
     // Repository
     bind(AuthRepository::class.java).to(AuthImplRepository::class.java).singleton()
+    bind(FirestoreRepository::class.java).to(FirestoreImplRepository::class.java).singleton()
 }

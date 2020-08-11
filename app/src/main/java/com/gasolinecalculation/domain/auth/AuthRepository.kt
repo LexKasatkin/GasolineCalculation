@@ -10,4 +10,6 @@ interface AuthRepository {
     suspend fun googleSignIn(credential: AuthCredential)
 
     suspend fun getCurrentUser(): FirebaseUser?
+
+    suspend fun getUserToken(): String?
 }

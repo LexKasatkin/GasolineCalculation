@@ -16,5 +16,7 @@ class AuthImplRepository @Inject constructor(
 
 
     override suspend fun getCurrentUser() = auth?.currentUser
+
+    override suspend fun getUserToken(): String? = auth?.currentUser?.uid
 }
 
