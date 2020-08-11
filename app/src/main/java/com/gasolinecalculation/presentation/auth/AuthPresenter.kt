@@ -2,7 +2,8 @@ package com.gasolinecalculation.presentation.auth
 
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BasePresenter
-import com.gasolinecalculation.domain.interactors.AuthInteractor
+import com.gasolinecalculation.domain.auth.GetCurrentUserUseCase
+import com.gasolinecalculation.domain.auth.GoogleSignInUseCase
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
 import com.google.firebase.auth.GoogleAuthProvider
@@ -14,13 +15,14 @@ import javax.inject.Inject
 
 @InjectViewState
 class AuthPresenter @Inject constructor(
+    private val googleSignInUseCase: GoogleSignInUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val router: FlowRouter,
-    private val interactor: AuthInteractor,
     dispatchersProvider: DispatchersProvider
 ) : BasePresenter<AuthView>(dispatchersProvider) {
 
     override fun proceedCoroutineError(throwable: Throwable) {
-        viewState.showError(throwable.localizedMessage)
+        throwable.localizedMessage?.let { viewState.showError(it) }
         Timber.e(throwable)
     }
 
@@ -28,7 +30,7 @@ class AuthPresenter @Inject constructor(
 
     fun googleSignIn() {
         launch {
-            if (interactor.getCurrentUser() == null) viewState.startGoogleSignIn()
+            if (getCurrentUserUseCase.getCurrentUser() == null) viewState.startGoogleSignIn()
             else navigateToTabs()
         }
     }
@@ -37,7 +39,7 @@ class AuthPresenter @Inject constructor(
         launch {
             try {
                 val credential = GoogleAuthProvider.getCredential(userToken, null)
-                interactor.signInWithCredential(credential)
+                googleSignInUseCase.signInWithCredential(credential)
                 navigateToTabs()
             } catch (e: Exception) {
                 proceedCoroutineError(e)

@@ -1,9 +1,9 @@
-package com.gasolinecalculation.domain.interactors
+package com.gasolinecalculation.domain.auth
 
 import com.gasolinecalculation.data.AuthImplRepository
 import javax.inject.Inject
 
-class TabsFlowInteractor @Inject constructor(
+class GoogleSignOutUseCase @Inject constructor(
     private val repository: AuthImplRepository
 ) {
     suspend fun googleSignOut() = repository.googleSignOut()

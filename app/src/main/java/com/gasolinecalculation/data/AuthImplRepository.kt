@@ -1,5 +1,6 @@
 package com.gasolinecalculation.data
 
+import com.gasolinecalculation.domain.auth.AuthRepository
 import com.gasolinecalculation.util.awaitTaskCompletable
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth

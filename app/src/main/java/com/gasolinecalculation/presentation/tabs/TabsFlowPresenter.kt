@@ -2,7 +2,7 @@ package com.gasolinecalculation.presentation.tabs
 
 import com.gasolinecalculation.Screens
 import com.gasolinecalculation.base.BasePresenter
-import com.gasolinecalculation.domain.interactors.TabsFlowInteractor
+import com.gasolinecalculation.domain.auth.GoogleSignOutUseCase
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
 import com.google.android.gms.tasks.Task
@@ -13,9 +13,9 @@ import javax.inject.Inject
 
 @InjectViewState
 class TabsFlowPresenter @Inject constructor(
-    private val interactor: TabsFlowInteractor,
-    private val dispatchersProvider: DispatchersProvider,
-    private val router: FlowRouter
+    private val googleSignOutUseCase: GoogleSignOutUseCase,
+    private val router: FlowRouter,
+    dispatchersProvider: DispatchersProvider
 ) : BasePresenter<TabsFlowView>(dispatchersProvider) {
 
     override fun proceedCoroutineError(throwable: Throwable) {
@@ -41,7 +41,7 @@ class TabsFlowPresenter @Inject constructor(
         launch {
             try {
                 if (task.isSuccessful) {
-                    interactor.googleSignOut()
+                    googleSignOutUseCase.googleSignOut()
                     navigateToAuth()
                 }
             } catch (e: Exception) {

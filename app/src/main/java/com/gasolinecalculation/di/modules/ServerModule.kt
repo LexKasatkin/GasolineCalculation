@@ -1,8 +1,8 @@
 package com.gasolinecalculation.di.modules
 
 import com.gasolinecalculation.data.AuthImplRepository
-import com.gasolinecalculation.data.AuthRepository
 import com.gasolinecalculation.di.providers.OkHttpProvider
+import com.gasolinecalculation.domain.auth.AuthRepository
 import com.gasolinecalculation.domain.model.AuthData
 import com.gasolinecalculation.domain.model.AuthDataPrefs
 import com.google.firebase.auth.FirebaseAuth

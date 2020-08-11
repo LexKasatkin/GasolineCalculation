@@ -1,4 +1,4 @@
-package com.gasolinecalculation.data
+package com.gasolinecalculation.domain.auth
 
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser

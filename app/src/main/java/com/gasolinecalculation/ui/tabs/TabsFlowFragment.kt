@@ -35,6 +35,23 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
     private val currentFragment
         get() = childFragmentManager.findFragmentById(R.id.flow_container) as? BaseFragment
 
+    private val navigator: Navigator by lazy {
+        object : SupportAppNavigator(requireActivity(), childFragmentManager, R.id.flow_container) {
+            override fun activityBack() {
+                router.exit()
+            }
+
+            override fun setupFragmentTransaction(
+                command: Command,
+                currentFragment: Fragment?,
+                nextFragment: Fragment?,
+                fragmentTransaction: FragmentTransaction
+            ) {
+                fragmentTransaction.setReorderingAllowed(true)
+            }
+        }
+    }
+
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
@@ -52,24 +69,6 @@ class TabsFlowFragment : BaseFragment(), TabsFlowView {
         scope.installModules(
             NavigationModule(scope.getInstance(Router::class.java))
         )
-    }
-
-    private val navigator: Navigator by lazy {
-        object : SupportAppNavigator(requireActivity(), childFragmentManager, R.id.flow_container) {
-            override fun activityBack() {
-                router.exit()
-            }
-
-            override fun setupFragmentTransaction(
-                command: Command,
-                currentFragment: Fragment?,
-                nextFragment: Fragment?,
-                fragmentTransaction: FragmentTransaction
-            ) {
-                // Fix incorrect order lifecycle callback of MainFragment
-                fragmentTransaction.setReorderingAllowed(true)
-            }
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
