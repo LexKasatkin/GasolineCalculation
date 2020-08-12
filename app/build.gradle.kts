@@ -99,6 +99,9 @@ dependencies {
     implementation("com.github.moxy-community:moxy:$moxyVersion")
     implementation("com.github.moxy-community:moxy-androidx:$moxyVersion")
 
+    //Joda time
+    implementation("net.danlew:android.joda:2.10.3")
+
     //Navigation
     implementation("ru.terrakok.cicerone:cicerone:5.1.1")
 

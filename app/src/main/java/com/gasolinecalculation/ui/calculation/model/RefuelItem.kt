@@ -34,8 +34,8 @@ class RefuelItem(private val refuel: Refuel) : AbstractItem<RefuelItem.ViewHolde
 
         override fun bindView(item: RefuelItem, payloads: List<Any>) {
             val refuel = item.refuel
-            tvCost.text = refuel.cost.toString()
-            tvAllCost.text = (refuel.cost * refuel.mileage).toString()
+            tvCost.text = refuel.cost
+            tvAllCost.text = refuel.allCost
             tvMileage.text = refuel.mileage.toString()
             tvDateTime.text = refuel.dateTime
         }

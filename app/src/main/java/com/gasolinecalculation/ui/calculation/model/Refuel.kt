@@ -1,21 +1,29 @@
 package com.gasolinecalculation.ui.calculation.model
 
-import com.gasolinecalculation.data.model.Refuel
+import com.gasolinecalculation.domain.model.RefuelDomain
 
 /**
  * Presentation model for refuel.
  */
 data class Refuel(
-    val cost: Int = 0,
-    val mileage: Int = 0,
-    val dateTime: String = ""
+    val cost: String = "",
+    val mileage: String = "",
+    val dateTime: String = "",
+    val allCost: String = ""
 )
 
 /**
- * Converts [Refuel] to [Refuel].
+ * Converts [RefuelDomain] to [Refuel].
  */
-fun Refuel.toPresentation() = Refuel(
-    cost = cost,
-    mileage = mileage,
-    dateTime = dateTime.toString()
+fun RefuelDomain.toPresentation(
+    costFormat: String,
+    mileageFormat: String,
+    dateTimePattern: String,
+    currency: String
+) = Refuel(
+    cost = costFormat.format(cost),
+    mileage = mileageFormat.format(mileage),
+    dateTime = dateTime.toString(dateTimePattern),
+    allCost = "${(cost * mileage)} $currency"
+
 )

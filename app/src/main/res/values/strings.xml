@@ -7,4 +7,8 @@
     <string name="unknown_error">Unknown error</string>
     <string name="sign_out">Sign Out</string>
     <string name="authentication_error">Authentication Failed.</string>
+    <string name="gas_cost_format">%.2f $/G</string>
+    <string name="mileage_format">%d miles</string>
+    <string name="date_time_pattern">d MMMM, yyyy, hh:mm</string>
+    <string name="currency">$</string>
 </resources>

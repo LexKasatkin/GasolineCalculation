@@ -7,7 +7,7 @@
     android:padding="@dimen/padding_2x">
 
     <TextView
-        android:id="@+id/tvMileage"
+        android:id="@+id/tvAllCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_2x"
@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDateTime"
-        tools:text="14 000 км" />
+        tools:text="1400 руб" />
 
     <TextView
         android:id="@+id/tvDateTime"
@@ -34,11 +34,11 @@
         tools:text="50 руб/литр" />
 
     <TextView
-        android:id="@+id/tvAllCost"
+        android:id="@+id/tvMileage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_2x"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCost"
-        tools:text="600 руб" />
+        tools:text="60000 км" />
 </androidx.constraintlayout.widget.ConstraintLayout>
