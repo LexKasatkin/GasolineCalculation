@@ -8,11 +8,14 @@ class GetRefuelsByUserTokenUseCase @Inject constructor(
     private val repository: FirestoreRepository,
     private val firebaseFirestore: FirebaseFirestore
 ) {
-    suspend fun getRefuelsByUserToken(userToken: String) {
+    suspend fun getRefuelsByUserToken(userToken: String): List<Refuel> {
         val query = firebaseFirestore.collection("refuels")
-            .whereArrayContains("userToken", userToken)
+            .whereEqualTo("userToken", userToken)
+            .orderBy("dateTime")
+            .orderBy("mileage")
 
-        repository.getQueryCollection(query)
+        return repository.getQueryCollection(query)
             .map { it.toObject(Refuel::class.java) }
+            .filterNotNull()
     }
 }

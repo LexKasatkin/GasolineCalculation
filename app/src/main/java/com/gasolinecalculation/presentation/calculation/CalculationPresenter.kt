@@ -5,6 +5,8 @@ import com.gasolinecalculation.domain.auth.GetUserTokenUseCase
 import com.gasolinecalculation.domain.firestore.GetRefuelsByUserTokenUseCase
 import com.gasolinecalculation.navigation.FlowRouter
 import com.gasolinecalculation.system.DispatchersProvider
+import com.gasolinecalculation.ui.calculation.model.RefuelItem
+import com.gasolinecalculation.ui.calculation.model.toPresentation
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import timber.log.Timber
@@ -27,20 +29,24 @@ class CalculationPresenter @Inject constructor(
     fun onBackPressed() = router.exit()
 
     override fun proceedCoroutineError(throwable: Throwable) {
+        throwable.localizedMessage?.let { viewState.showMessage(it) }
         Timber.e(throwable)
     }
 
     private fun loadData() {
         launch {
+            viewState.showProgress(true)
             val userToken = getUserTokenUseCase.getUserToken()
             try {
-                userToken?.let {
-                    val refuels = getRefuelsByUserTokenUseCase.getRefuelsByUserToken(it)
-                    Timber.v(refuels.toString())
+                userToken?.let { token ->
+                    val refuelItems = getRefuelsByUserTokenUseCase.getRefuelsByUserToken(token)
+                        .map { RefuelItem(it.toPresentation()) }
+                    viewState.showRefuels(refuelItems)
                 }
             } catch (exception: Exception) {
                 proceedCoroutineError(exception)
             }
+            viewState.showProgress(false)
         }
     }
 

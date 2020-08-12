@@ -74,11 +74,16 @@ androidExtensions {
 }
 
 dependencies {
-    //Support
+    //UI
+    val coreVersion = "1.3.1"
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("com.mikepenz:fastadapter:5.0.0")
+    implementation("com.mikepenz:fastadapter-extensions-utils:5.0.0")
+    implementation("com.mikepenz:fastadapter-extensions-diff:5.0.0")
+    implementation("androidx.core:core-ktx:$coreVersion")
 
     //Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
