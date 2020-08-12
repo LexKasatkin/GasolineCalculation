@@ -80,6 +80,7 @@ dependencies {
     implementation("com.google.android.material:material:1.2.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.mikepenz:fastadapter:5.0.0")
     implementation("com.mikepenz:fastadapter-extensions-utils:5.0.0")
     implementation("com.mikepenz:fastadapter-extensions-diff:5.0.0")

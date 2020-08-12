@@ -15,4 +15,6 @@ interface CalculationView : MvpView {
     fun showMessage(message: String)
 
     fun showRefuels(refuels: List<RefuelItem>)
+
+    fun showRefreshView(refresh: Boolean)
 }

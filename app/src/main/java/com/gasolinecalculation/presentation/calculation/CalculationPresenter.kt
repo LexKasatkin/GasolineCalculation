@@ -26,19 +26,31 @@ class CalculationPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadData()
+
+        onFirstLoading()
     }
 
     fun onBackPressed() = router.exit()
+
+    fun onRefresh() {
+        viewState.showRefreshView(true)
+        loadData()
+        viewState.showRefreshView(false)
+    }
 
     override fun proceedCoroutineError(throwable: Throwable) {
         throwable.localizedMessage?.let { viewState.showMessage(it) }
         Timber.e(throwable)
     }
 
+    private fun onFirstLoading() {
+        viewState.showProgress(true)
+        loadData()
+        viewState.showProgress(false)
+    }
+
     private fun loadData() {
         launch {
-            viewState.showProgress(true)
             val userToken = getUserTokenUseCase.getUserToken()
             try {
                 userToken?.let { token ->
@@ -58,8 +70,6 @@ class CalculationPresenter @Inject constructor(
             } catch (exception: Exception) {
                 proceedCoroutineError(exception)
             }
-            viewState.showProgress(false)
         }
     }
-
 }

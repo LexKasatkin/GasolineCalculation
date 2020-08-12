@@ -33,6 +33,8 @@ class CalculationFragment : BaseFragment(), CalculationView {
     }
 
     private fun initUI() {
+        swipeRefreshLayout.setOnRefreshListener { presenter.onRefresh() }
+
         rvRefuels.layoutManager = LinearLayoutManager(requireContext())
         rvRefuels.adapter = refuelsAdapter
     }
@@ -48,7 +50,10 @@ class CalculationFragment : BaseFragment(), CalculationView {
 //            )
 //        }
 
-//    }
+    //    }
+    override fun showRefreshView(refresh: Boolean) {
+//        swipeRefreshLayout.isRefreshing = refresh
+    }
 
     override fun showProgress(isVisible: Boolean) {
         progress.isVisible = isVisible
