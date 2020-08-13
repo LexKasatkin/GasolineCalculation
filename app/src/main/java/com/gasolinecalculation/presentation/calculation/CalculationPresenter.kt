@@ -28,7 +28,7 @@ class CalculationPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        onFirstLoading()
+        loadData()
     }
 
     override fun proceedCoroutineError(throwable: Throwable) {
@@ -46,20 +46,7 @@ class CalculationPresenter @Inject constructor(
      */
     fun onRefresh() {
         launch {
-            viewState.showRefreshView(true)
             loadData()
-            viewState.showRefreshView(false)
-        }
-    }
-
-    /**
-     * First loading logic.
-     */
-    private fun onFirstLoading() {
-        launch {
-            viewState.showProgress(true)
-            loadData()
-            viewState.showProgress(false)
         }
     }
 
@@ -68,6 +55,7 @@ class CalculationPresenter @Inject constructor(
      */
     private fun loadData() {
         launch {
+            viewState.showProgress(true)
             val userToken = getUserTokenUseCase.getUserToken()
             try {
                 userToken?.let { token ->
@@ -87,6 +75,7 @@ class CalculationPresenter @Inject constructor(
             } catch (exception: Exception) {
                 proceedCoroutineError(exception)
             }
+            viewState.showProgress(false)
         }
     }
 }
