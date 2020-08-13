@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.fragment_calculation.*
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
+/**
+ * Fragment with calculation.
+ */
 class CalculationFragment : BaseFragment(), CalculationView {
     private var refuelsAdapter: FastItemAdapter<RefuelItem> = FastItemAdapter()
 
@@ -32,27 +35,8 @@ class CalculationFragment : BaseFragment(), CalculationView {
         initUI()
     }
 
-    private fun initUI() {
-        swipeRefreshLayout.setOnRefreshListener { presenter.onRefresh() }
-
-        rvRefuels.layoutManager = LinearLayoutManager(requireContext())
-        rvRefuels.adapter = refuelsAdapter
-    }
-//        view?.addSystemBottomPadding()
-//        toolbar.apply {
-//            setNavigationOnClickListener { presenter.onBackPressed() }
-//            addSystemTopPadding()
-//        }
-//        btnLogin.setOnClickListener {
-//            presenter.login(
-//                etEmail.text.toString(),
-//                etPassword.text.toString()
-//            )
-//        }
-
-    //    }
     override fun showRefreshView(refresh: Boolean) {
-//        swipeRefreshLayout.isRefreshing = refresh
+        swipeRefreshLayout.isRefreshing = refresh
     }
 
     override fun showProgress(isVisible: Boolean) {
@@ -65,5 +49,14 @@ class CalculationFragment : BaseFragment(), CalculationView {
 
     override fun onBackPressed() {
         presenter.onBackPressed()
+    }
+
+    /**
+     * Initialize UI of calculation.
+     */
+    private fun initUI() {
+        swipeRefreshLayout.setOnRefreshListener { presenter.onRefresh() }
+        rvRefuels.layoutManager = LinearLayoutManager(requireContext())
+        rvRefuels.adapter = refuelsAdapter
     }
 }

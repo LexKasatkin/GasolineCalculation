@@ -14,7 +14,9 @@ import moxy.InjectViewState
 import timber.log.Timber
 import javax.inject.Inject
 
-
+/**
+ * A presenter class for calculation screen. Manages the logic of loading refuels.
+ */
 @InjectViewState
 class CalculationPresenter @Inject constructor(
     private val getRefuelsByUserTokenUseCase: GetRefuelsByUserTokenUseCase,
@@ -26,16 +28,7 @@ class CalculationPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-
         onFirstLoading()
-    }
-
-    fun onBackPressed() = router.exit()
-
-    fun onRefresh() {
-        viewState.showRefreshView(true)
-        loadData()
-        viewState.showRefreshView(false)
     }
 
     override fun proceedCoroutineError(throwable: Throwable) {
@@ -43,12 +36,36 @@ class CalculationPresenter @Inject constructor(
         Timber.e(throwable)
     }
 
-    private fun onFirstLoading() {
-        viewState.showProgress(true)
-        loadData()
-        viewState.showProgress(false)
+    /**
+     * On back pressed handler.
+     */
+    fun onBackPressed() = router.exit()
+
+    /**
+     * Handle of refresh list of refuels.
+     */
+    fun onRefresh() {
+        launch {
+            viewState.showRefreshView(true)
+            loadData()
+            viewState.showRefreshView(false)
+        }
     }
 
+    /**
+     * First loading logic.
+     */
+    private fun onFirstLoading() {
+        launch {
+            viewState.showProgress(true)
+            loadData()
+            viewState.showProgress(false)
+        }
+    }
+
+    /**
+     * Load common data - list of refuels.
+     */
     private fun loadData() {
         launch {
             val userToken = getUserTokenUseCase.getUserToken()
